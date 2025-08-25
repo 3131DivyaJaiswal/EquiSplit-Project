@@ -1,0 +1,135 @@
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Log in :: Splitwise</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #08090bff;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-image: url('https://assets.splitwise.com/assets/core/pattern-bg-8a4e2ebea5a0e5f53c8afc054d4c6a06373e1e0b7cd8af8b16f3b913bebc459b.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .sw-header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 32px 48px 12px 48px;
+            position: relative;
+        }
+        .sw-logo {
+            display: flex;
+            align-items: center;
+        }
+        .sw-logo img {
+            height: 44px;
+            margin-right: 10px;
+        }
+        .sw-logo span {
+            font-size: 1.7em;
+            color: #faf3f3ff;
+            font-weight: 700;
+            letter-spacing: .04em;
+        }
+        .sw-nav a {
+            color: #20a074;
+            font-size: 1em;
+            font-weight: 500;
+            text-decoration: none;
+            margin-left: 12px;
+            margin-right: 8px;
+        }
+        .sw-nav .btn {
+            font-size: 1em;
+            border-radius: 8px;
+            padding: 7px 20px;
+            margin-left: 10px;
+        }
+        .login-card {
+            margin: 0 auto;
+            margin-top: 54px;
+            max-width: 480px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 6px 36px 0 rgba(44,62,80,.11);
+            padding: 44px 36px 35px 36px;
+            min-width: 340px;
+        }
+        .login-card h2 {
+            font-weight: 600;
+            font-size: 2rem;
+            margin-bottom: 26px;
+            color: #232323;
+        }
+        .form-label {
+            font-weight: 500;
+            color: #232323;
+            margin-bottom: 0.45rem;
+        }
+        .btn-sw {
+            background: #20a074;
+            color: #fff;
+            width: 100%;
+            border: none;
+            border-radius: 7px;
+            font-size: 1.16rem;
+            font-weight: 700;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            height: 44px;
+            transition: background .1s;
+        }
+        .btn-sw:hover {
+            background: #12764d;
+        }
+        
+        
+        
+      
+    </style>
+</head>
+<body>
+    <div class="sw-header">
+        <div class="sw-logo">
+           <img src="/media/profile_photos/logoo.png" alt="Logo" />
+            <span>EquiSplit</span>
+        </div>
+        <div class="sw-nav">
+            <a href="{% url 'login' %}">Log in</a>
+            <a href="{% url 'register' %}" class="btn btn-outline-success">Sign up</a>
+        </div>
+    </div>
+    {% if form.errors %}
+  <div class="alert alert-danger">{% if form.non_field_errors %}
+    <ul class="errorlist nonfield">
+        {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}</div>
+{% endif %}
+    <div class="login-card">
+        <h2 >Log in</h2>
+        <form method="post" autocomplete="off">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="id_username" class="form-label">Email address</label>
+                <input type="text" name="username" id="id_username" class="form-control" placeholder="you@example.com" required>
+            </div>
+            <div class="mb-1">
+                <label for="id_password" class="form-label">Password</label>
+                <input type="password" name="password" id="id_password" class="form-control" placeholder="Your password" required>
+            </div>
+           
+            <button type="submit" class="btn btn-sw">Log in</button>
+        </form>
+ </div>
+</body>
+</html>

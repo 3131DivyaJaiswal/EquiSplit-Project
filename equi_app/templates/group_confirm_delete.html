@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="mx-auto" style="max-width:480px;">
+  <div class="card shadow-lg p-4">
+    <h4 class="mb-3 text-danger">Delete Group</h4>
+    <p>Are you sure you want to delete the group 
+        <strong>"{{ group.name }}"</strong>?
+      <br>This action <b>cannot be undone</b>.
+    </p>
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger w-100 mb-2">Yes, Delete</button>
+    </form>
+    <a href="{% url 'group_detail' group.id %}" class="btn btn-outline-secondary w-100">Cancel</a>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="main-box">
+  <!-- {% if form.errors %}
+  <div class="alert alert-danger">{{ form.errors }}</div>
+{% endif %} -->
+    <h4 class="mb-4 text-center" style="color:#20a074;font-weight:700;">Create Group</h4>      
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="mb-4 text-center">
+      {% if form.instance.group_image %}
+        <img src="{{ form.instance.group_image.url }}" class="rounded-circle" style="width:90px; height:90px; object-fit:cover; border:2.5px solid var(--theme-accent);" alt="Group Photo">
+      {% else %}
+        <img src="{{ form.instance.group_image.url }}" class="rounded-circle" style="width:90px; height:90px; object-fit:cover; border:2.5px solid var(--theme-accent);" alt="Default Group Photo">
+      {% endif %}
+    </div>
+    
+
+    <div class="mb-3">
+        <label class="form-label fw-semibold">Group Photo</label>
+        {{ form.group_image }}
+        <div class="form-text">Recommended size: 300x300px. JPG/PNG only.</div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Group Name</label>
+        {{ form.name }}
+    </div>
+
+    <label class="form-label">Add Members</label>
+    {{ form.members }}
+
+    <button type="submit" class="btn btn-success w-100" style="background:#20a074;">Create Group</button>
+</form>
+{% endblock %}

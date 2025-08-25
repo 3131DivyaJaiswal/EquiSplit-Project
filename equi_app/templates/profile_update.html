@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="mx-auto" style="max-width:540px;">
+  <div class="card shadow-lg p-4">
+    {% if form.errors %}
+    <div class="alert alert-danger">{{ form.errors }}</div>
+    {% endif %}
+    <h4 class="mb-4" style="color:var(--theme-accent);font-weight:700;">Update Profile</h4>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="mb-4 text-center">
+        {% if profile.profile_image %}
+          <img src="{{ profile.profile_image.url }}" class="rounded-circle" style="width:90px; height:90px; object-fit:cover; border:2.5px solid var(--theme-accent);" alt="Profile Photo">
+        {% else %}
+          <img src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=" class="rounded-circle" style="width:90px; height:90px; object-fit:cover; border:2.5px solid var(--theme-accent);" alt="Default Photo">
+        {% endif %}
+      </div>
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Profile Photo</label>
+        {{ form.profile_image }}
+        <div class="form-text">Recommended size: 300x300px. JPG/PNG only.</div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Phone Number</label>
+        {{ form.phone_number }}
+      </div>
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Gender</label>
+        {{ form.gender }}
+      </div>
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Address</label>
+        {{ form.address }}
+      </div>
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Pincode</label>
+        {{ form.pincode }}
+      </div>
+      <div class="mb-3">
+        <label class="form-label fw-semibold">UPI ID</label>
+        {{ form.upi_id }}
+      </div>
+      <div class="mb-3">
+        <label class="form-label fw-semibold">WhatsApp Number</label>
+        {{ form.whatsapp_number }}
+      </div>
+      <button type="submit" class="btn btn-accent w-100">Update Profile</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

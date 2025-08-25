@@ -1,0 +1,84 @@
+{% extends "base.html" %} {% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-xl-9 mb-4">
+      <h2 class="fw-bold" style="color: var(--theme-accent)">Your Groups</h2>
+      {% if groups %}
+      <ul class="list-group list-group-flush mt-3">
+        {% for group in groups %} 
+        <li
+          class="list-group-item d-flex justify-content-between align-items-center bg-white rounded-3 mb-2 shadow-sm"
+        >
+          <div class="d-flex align-items-center">
+            {% if group.group_image %}
+            <img
+             
+              
+              src="{{ group.group_image.url }}" 
+              alt="{{ group.name }}"
+              class="rounded-circle me-3"
+              style="
+                width: 45px;
+                height: 45px;
+                object-fit: cover;
+                border: 2px solid var(--theme-accent);
+              "
+            />
+            {% else %}
+            <img
+              src="{{ group.group_image.url }}" 
+              alt="Default Group Icon"
+              class="rounded-circle me-3"
+              style="
+                width: 45px;
+                height: 45px;
+                object-fit: cover;
+                border: 2px solid var(--theme-accent);
+              "
+            />
+            {% endif %}
+
+            <span class="fw-semibold" style="color: #303c3c; font-size: 1.12em">
+              {{ group.name }}
+            </span>
+          </div>
+          <div>
+            <a
+              href="{% url 'group_detail' group.id %}"
+              class="btn btn-outline-accent btn-sm"
+              style="
+                border-color: var(--theme-accent);
+                color: var(--theme-accent);
+              "
+              >View</a
+            >
+            <a
+              href="{% url 'group_delete' group.id %}"
+              class="btn btn-outline-danger btn-sm"
+              >Delete</a
+            >
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <div class="alert alert-warning mt-3">
+        You haven't joined any groups yet.
+      </div>
+      {% endif %}
+    </div>
+    <div class="col-12 col-xl-3">
+      <div class="card shadow-sm mb-4">
+        <div class="card-body text-center">
+          <h5 class="card-title mb-2" style="color: var(--theme-accent)">
+            Add New Group
+          </h5>
+          <a href="{% url 'create_group' %}" class="btn btn-accent w-100 mt-1">
+            <i class="fa fa-plus"></i> Create Group
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

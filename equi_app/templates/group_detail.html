@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="side-box">
+    <h4 class="mb-3 text-center" style="color:#20a074;">Group: {{ group.name }}</h4>
+    <div class="mb-4">
+        <span class="fw-bold" style="color:#20a074;">Balances</span>
+        <ul class="list-group">
+        {% for member, balance in balances.items %}
+            <li class="list-group-item d-flex justify-content-between">
+            <span>{{ member.username }}</span>
+             <span style="font-weight:500;"{% if balance > 0 %}color:#1a7c58;{% elif balance < 0 %}color:#d35400;{% else %}color:#555;{% endif %}">
+                 ₹{{ balance|floatformat:2 }}
+              </span>
+        {% endfor %}
+        </ul>
+    </div>
+
+    <div class="mb-4">
+    <h5 class="mt-4 mb-2">Who owes whom</h5>
+    {% if settlements %}
+    <ul class="list-group mb-3">
+      {% for debtor, creditor, amount, debtor_upi, creditor_upi in settlements %}
+      <li class="list-group-item d-flex align-items-center justify-content-between">
+        <span>
+          <strong>{{ debtor.username }}</strong> has to give
+          <b style="color: var(--theme-accent)">₹{{ amount|floatformat:2 }}</b>
+          to <strong>{{ creditor.username }}</strong>
+          {% if creditor_upi %}
+            <br /><small>UPI ID: {{ creditor_upi }}</small>
+          {% endif %}
+        </span>
+        <a
+          href="{% url 'send_reminder_email' group.id debtor.id %}"
+          class="btn btn-sm btn-outline-primary ms-3"
+        >
+          Send Mail
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <div class="alert alert-success">All accounts settled up 🎉</div>
+    {% endif %}
+  </div>
+
+
+    <div class="d-flex justify-content-between">
+        <a href="{% url 'dashboard' %}" class="btn btn-outline-success">Back</a>
+        <a href="{% url 'add_expense' group.id %}" class="btn btn-success" style="background:#20a074;">+ Add Expense</a>
+    </div>
+</div>
+{% endblock %}
